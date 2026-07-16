@@ -175,6 +175,10 @@ h1 {
     margin-bottom: 5px;
 }
 
+.form-select {
+    text-align: center;
+}
+
 /* ---------- ALERT / MESSAGGI ---------- */
 .alert {
     border-radius: var(--border-radius);
