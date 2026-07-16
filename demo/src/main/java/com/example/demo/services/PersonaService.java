@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entities.Persona;
+import com.example.demo.entities.Dipendente;
 import com.example.demo.repositories.IPersonaRepository;
 
 @Service
@@ -13,35 +13,28 @@ public class PersonaService {
 	
 	private final IPersonaRepository personaRepo;
 	
-	public PersonaService(IPersonaRepository personaRepo)
-	{
-		this.personaRepo=personaRepo;
+	public PersonaService(IPersonaRepository personaRepo) {
+		this.personaRepo = personaRepo;
 	}
 	
-	public Persona inserimentoPersona(Persona p)
-	{
-		return personaRepo.save(p);
-		
-		
+	public Dipendente inserimentoPersona(Dipendente d) {
+		return personaRepo.save(d);
 	}
-
-	public List<Persona> selectAll() {
-		
+	
+	public List<Dipendente> selectAll() {
 		return personaRepo.findAll();
-		
 	}
 	
-	public Persona findById(int id) {
-		Optional<Persona> opt = personaRepo.findById(id);
-		return opt.orElse(null); // o lancia eccezione se preferisci
+	public Dipendente findById(int id) {
+		Optional<Dipendente> opt = personaRepo.findById(id);
+		return opt.orElse(null);
 	}
 	
-	public Persona updatePersona(Persona p) {
-		return personaRepo.save(p);
+	public Dipendente updatePersona(Dipendente d) {
+		return personaRepo.save(d);
 	}
 	
 	public void deletePersona(int id) {
 		personaRepo.deleteById(id);
 	}
-
 }

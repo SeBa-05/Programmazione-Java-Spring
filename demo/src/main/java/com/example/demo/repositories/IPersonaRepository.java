@@ -2,9 +2,11 @@ package com.example.demo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entities.Persona;
+import com.example.demo.entities.Dipendente;
 
-public interface IPersonaRepository extends JpaRepository<Persona, Integer>{
+
+
+public interface IPersonaRepository extends JpaRepository<Dipendente, Integer>{
 	
 	
 	

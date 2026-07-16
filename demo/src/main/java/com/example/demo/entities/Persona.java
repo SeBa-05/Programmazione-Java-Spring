@@ -1,25 +1,17 @@
 package com.example.demo.entities;
 
+import java.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 
-
-
-@Entity
-@Table(name="persone")
+@MappedSuperclass
 @Data
 public class Persona {  //POJO
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
+		
 	
 	@Column(nullable = false)
 	private String nome;
@@ -30,6 +22,11 @@ public class Persona {  //POJO
 	
 	@Column(name="codice_fiscale", nullable = false, unique = true)
 	private String cf;
+	
+	
+	@Column(name="data_di_nascita", nullable = false)
+	@DateTimeFormat(iso=DateTimeFormat.ISO.DATE) // per il binding da form
+	private LocalDate dataDiNascita;
 	
 	
 	

@@ -14,11 +14,24 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public String dataIntegrityViolationException(DataIntegrityViolationException e, Model model)
 	{
-		
 		model.addAttribute("msg", e.getMessage());
-		
 		return "error";
 		
 	}
+	
+	
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public String illegalArgumentException(IllegalArgumentException e, Model model)
+	{
+		model.addAttribute("msg", e.getMessage());
+		return "error";
+		
+	}
+	
+	
+	
+	
+	
 	
 }

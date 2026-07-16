@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,102 +9,110 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.demo.entities.Persona;
+import com.example.demo.entities.Dipendente;
 import com.example.demo.services.PersonaService;
 
 @Controller
 public class PageController {
 
-	
-	private final PersonaService perService;
-	
-	public PageController(PersonaService perService)
-	{
-		this.perService=perService;
-	}
-	
-	@GetMapping("/")
-	public String root()
-	{
-		return "redirect:home";
-		
-	}
-	
-	@GetMapping("/home")
-	public String home()
-	{
-		return "home"; //richiama la view la pag. html
-		
-	}
-	
-	@GetMapping("/new")
-	public String create(Model model)
-	{
-		
-		model.addAttribute("p", new Persona());
-		
-		
-		return "form"; 
-		
-	}
-	
-	@PostMapping("/new")
-	public String create(@ModelAttribute("p") Persona p,Model model)
-	{
-		
-		//System.out.println("--->"+p);
-		
-		Persona pNew=perService.inserimentoPersona(p);
-		
-		model.addAttribute("msg", "Benvenuto: ");
-		model.addAttribute("pNew", pNew);
-		
-		return "home"; 
-		
-	}
-	
-	@GetMapping("/gestione")
-	public String selectAll(Model model)
-	{
-		
-		model.addAttribute("items", perService.selectAll());
-		
-		
-		return "gestione"; 
-		
-	}
-	
-	@GetMapping("/edit/{id}")
-	public String edit(@PathVariable("id") int id, Model model) {
-	    Persona persona = perService.findById(id);
-	    if (persona == null) {
-	        // se non trovata, reindirizza a gestione con messaggio
-	        model.addAttribute("msg", "Persona non trovata");
-	        return "redirect:/gestione";
-	    }
-	    model.addAttribute("p", persona);
-	    return "form";
-	}
-	
-	@PostMapping("/edit/{id}")
-	public String update(@PathVariable("id") int id, 
-	                     @ModelAttribute("p") Persona p, 
-	                     Model model) {
-	    // L'ID deve corrispondere a quello del path (per sicurezza lo imposto)
-	    p.setId(id);
-	    perService.updatePersona(p);
-	    model.addAttribute("msg", "Aggiornato con successo: ");
-	    model.addAttribute("pNew", p);
-	    return "home";   // torna alla home con messaggio di conferma
-	}
-	
-	@GetMapping("/delete/{id}")
-	public String delete(@PathVariable("id") int id, Model model) {
-	    perService.deletePersona(id);
-	    // Dopo l'eliminazione, ricarico la lista e mostro un messaggio in gestione
-	    model.addAttribute("items", perService.selectAll());
-	    model.addAttribute("msg", "Persona eliminata con successo");
-	    return "gestione";
-	}
-	
+    private final PersonaService perService;
+
+    public PageController(PersonaService perService) {
+        this.perService = perService;
+    }
+
+    @GetMapping("/")
+    public String root() {
+        return "redirect:home";
+    }
+
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping("/new")
+    public String create(Model model) {
+        model.addAttribute("p", new Dipendente());
+        return "form";
+    }
+
+    @PostMapping("/new")
+    public String create(@ModelAttribute("p") Dipendente d, Model model) {
+        Dipendente dNew = perService.inserimentoPersona(d);
+        model.addAttribute("msg", "✅ Nuovo dipendente aggiunto: " + dNew.getNome() + " " + dNew.getCognome() + " (" + dNew.getTipoRuolo() + ")");
+        return "home";
+    }
+
+    @GetMapping("/gestione")
+    public String selectAll(Model model) {
+        model.addAttribute("items", perService.selectAll());
+        return "gestione";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+        Dipendente dipendente = perService.findById(id);
+        if (dipendente == null) {
+            model.addAttribute("msg", "Dipendente non trovato");
+            return "redirect:/gestione";
+        }
+        model.addAttribute("p", dipendente);
+        return "form";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable("id") int id,
+                         @ModelAttribute("p") Dipendente dForm,
+                         Model model) {
+
+        Dipendente originale = perService.findById(id);
+        if (originale == null) {
+            model.addAttribute("msg", "Dipendente non trovato");
+            return "redirect:/gestione";
+        }
+
+        boolean modificato = false;
+
+        // Confronto campi di Persona
+        if (!Objects.equals(originale.getNome(), dForm.getNome())) modificato = true;
+        else if (!Objects.equals(originale.getCognome(), dForm.getCognome())) modificato = true;
+        else if (!Objects.equals(originale.getCf(), dForm.getCf())) modificato = true;
+        else if (!Objects.equals(originale.getDataDiNascita(), dForm.getDataDiNascita())) modificato = true;
+        // Confronto campi di Dipendente
+        else if (originale.getStipendio() != dForm.getStipendio()) modificato = true;
+        else if (!Objects.equals(originale.getEmail(), dForm.getEmail())) modificato = true;
+        else if (!Objects.equals(originale.getDataDiAssunzione(), dForm.getDataDiAssunzione())) modificato = true;
+        else if (originale.getTipoRuolo() != dForm.getTipoRuolo()) modificato = true;
+
+        if (!modificato) {
+            model.addAttribute("p", originale);
+            model.addAttribute("msg", "Nessuna modifica effettuata.");
+            return "form";
+        }
+
+        // Aggiorno tutti i campi
+        originale.setNome(dForm.getNome());
+        originale.setCognome(dForm.getCognome());
+        originale.setCf(dForm.getCf());
+        originale.setDataDiNascita(dForm.getDataDiNascita());
+        originale.setStipendio(dForm.getStipendio());
+        originale.setEmail(dForm.getEmail());
+        originale.setDataDiAssunzione(dForm.getDataDiAssunzione());
+        originale.setTipoRuolo(dForm.getTipoRuolo());
+
+        perService.updatePersona(originale);
+
+        model.addAttribute("msg", "✅ Dipendente aggiornato con successo: ");
+        model.addAttribute("pNew", originale);
+        return "home";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") int id, Model model) {
+        perService.deletePersona(id);
+        model.addAttribute("msg", "🗑️ Dipendente eliminato con successo (ID: " + id + ")");
+        model.addAttribute("items", perService.selectAll());
+        return "gestione";
+    }
 }
