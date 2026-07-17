@@ -47,21 +47,6 @@ public class PageController {
                          BindingResult result,
                          Model model) {
 
-        // Controllo manuale per tipoRuolo
-        if (d.getTipoRuolo() == null) {
-            result.rejectValue("tipoRuolo", "NotNull", "Il ruolo è obbligatorio!");
-        }
-
-        // Controllo manuale per data di nascita e maggiore età
-        if (d.getDataDiNascita() == null) {
-            result.rejectValue("dataDiNascita", "NotNull", "La data di nascita è obbligatoria!");
-        } else {
-            int eta = Period.between(d.getDataDiNascita(), LocalDate.now()).getYears();
-            if (eta < 18) {
-                result.rejectValue("dataDiNascita", "Minorenne", "Devi essere maggiorenne (almeno 18 anni)!");
-            }
-        }
-
         if (result.hasErrors()) {
             model.addAttribute("p", d);
             return "form";
@@ -96,37 +81,19 @@ public class PageController {
                          BindingResult result,
                          Model model) {
 
-        // 1. Controllo manuale per tipoRuolo
-        if (dForm.getTipoRuolo() == null) {
-            result.rejectValue("tipoRuolo", "NotNull", "Il ruolo è obbligatorio!");
-        }
-
-        // 2. Controllo manuale per data di nascita e maggiore età
-        if (dForm.getDataDiNascita() == null) {
-            result.rejectValue("dataDiNascita", "NotNull", "La data di nascita è obbligatoria!");
-        } else {
-            int eta = Period.between(dForm.getDataDiNascita(), LocalDate.now()).getYears();
-            if (eta < 18) {
-                result.rejectValue("dataDiNascita", "Minorenne", "Devi essere maggiorenne (almeno 18 anni)!");
-            }
-        }
-
-        // 3. Se ci sono errori di validazione, ritorno al form
         if (result.hasErrors()) {
             model.addAttribute("p", dForm);
             return "form";
         }
 
-        // 4. Recupero l'originale dal database
         Dipendente originale = perService.findById(id);
         if (originale == null) {
             model.addAttribute("msg", "Dipendente non trovato");
             return "redirect:/gestione";
         }
 
-        // 5. Controllo se ci sono modifiche (utile per mostrare il messaggio "Nessuna modifica")
+        // Controllo modifiche
         boolean modificato = false;
-
         if (!Objects.equals(originale.getNome(), dForm.getNome())) modificato = true;
         else if (!Objects.equals(originale.getCognome(), dForm.getCognome())) modificato = true;
         else if (!Objects.equals(originale.getCf(), dForm.getCf())) modificato = true;
@@ -142,7 +109,7 @@ public class PageController {
             return "form";
         }
 
-        // 6. Aggiorno tutti i campi
+        // Aggiorno
         originale.setNome(dForm.getNome());
         originale.setCognome(dForm.getCognome());
         originale.setCf(dForm.getCf());

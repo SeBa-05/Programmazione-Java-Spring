@@ -18,23 +18,23 @@ import lombok.Data;
 @Data
 public class Persona {
 
-    @NotBlank(message = "Il nome è obbligatorio!")
+    @NotBlank(message = "Nome obbligatorio!")
     @Size(min = 3, max = 20, message = "Il nome deve avere tra 3 e 20 caratteri")
     @Column(nullable = false)
     private String nome;
 
-    @NotBlank(message = "Il cognome è obbligatorio!")
+    @NotBlank(message = "Cognome obbligatorio!")
     @Size(min = 3, max = 20, message = "Il cognome deve avere tra 3 e 20 caratteri")
     @Column(nullable = false)
     private String cognome;
 
-    @NotBlank(message = "Il codice fiscale è obbligatorio!")
+    @NotBlank(message = "Codice fiscale obbligatorio!")
     @Pattern(regexp = "^[A-Z]{6}[0-9]{2}[A-Z]{1}[0-9]{2}[A-Z]{1}[0-9]{3}[A-Z]{1}$",
              message = "Codice fiscale non valido (es. RSSMRA85M10A562S)")
     @Column(name = "codice_fiscale", nullable = false, unique = true)
     private String cf;
 
-    @NotNull(message = "La data di nascita è obbligatoria!")
+    @NotNull(message = "Data di nascita obbligatoria!")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "data_di_nascita", nullable = false)
     private LocalDate dataDiNascita;
@@ -44,5 +44,14 @@ public class Persona {
         if (dataDiNascita == null) return false;
         int eta = Period.between(dataDiNascita, LocalDate.now()).getYears();
         return eta >= 18;
+    }
+
+
+    public void setCf(String cf) {
+        if (cf != null) {
+            this.cf = cf.toUpperCase().replaceAll("\\s+", "");
+        } else {
+            this.cf = null;
+        }
     }
 }

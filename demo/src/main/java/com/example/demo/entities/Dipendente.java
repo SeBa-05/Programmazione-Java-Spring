@@ -29,22 +29,22 @@ public class Dipendente extends Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Lo stipendio è obbligatorio!")
+    @NotNull(message = "Stipendio obbligatorio!")
     @Positive(message = "Lo stipendio deve essere maggiore di zero")
     @Column(nullable = false)
     private double stipendio;
 
-    @NotBlank(message = "L'email è obbligatoria!")
-    @Email(message = "Inserire un indirizzo email valido (es. nome@dominio.com)")
+    @NotBlank(message = "Email obbligatoria!")
+    @Email(message = "Email non valida (es. nome@dominio.com)")
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotNull(message = "La data di assunzione è obbligatoria!")
+    @NotNull(message = "Data di assunzione obbligatoria!")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Column(name = "data_di_assunzione", nullable = false)
     private LocalDate dataDiAssunzione;
 
-    @NotNull(message = "Il ruolo è obbligatorio!")
+    @NotNull(message = "Ruolo obbligatorio!")
     @Enumerated(EnumType.STRING)
     @Column(name = "ruolo", nullable = false)
     private Ruolo tipoRuolo;
