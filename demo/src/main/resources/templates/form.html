@@ -46,14 +46,12 @@
         </div>
 
         <div class="col-md-6">
-            <label for="dataNascita" class="form-label">Data di nascita</label>
-            <input type="date" class="form-control" th:field="*{dataDiNascita}" id="dataNascita"
-                   th:classappend="${#fields.hasErrors('dataDiNascita')} ? is-invalid">
-            <div class="invalid-feedback" th:errors="*{dataDiNascita}"></div>
-            <!-- Errore per maggiorenne -->
-            <div class="invalid-feedback" th:if="${#fields.hasErrors('maggiorenne')}"
-                 th:errors="*{maggiorenne}"></div>
-        </div>
+		    <label for="dataNascita" class="form-label">Data di nascita</label>
+		    <input type="date" class="form-control" th:field="*{dataDiNascita}" id="dataNascita"
+		           th:classappend="${#fields.hasErrors('dataDiNascita')} ? is-invalid">
+		    <div class="invalid-feedback" th:errors="*{dataDiNascita}"></div>
+		    <!-- Non serve un div separato per maggiorenne perché l'errore è sullo stesso campo -->
+		</div>
 
         <!-- Campi Dipendente -->
         <div class="col-md-6">
