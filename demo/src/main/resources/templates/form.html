@@ -3,70 +3,71 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-	<link rel="stylesheet" th:href="@{/css/bootstrap-css/bootstrap.rtl.min.css}">
-	<!-- CSS Personalizzato -->
-	<link rel="stylesheet" th:href="@{/css/style.css}">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-css/bootstrap.rtl.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>Form Dipendente</title>
 </head>
 <body>
 
-<div class="container mt-4">
+<div class="container container-form">
+
+    <!-- Titolo dinamico: Inserimento o Modifica -->
+    <h2 th:if="${p.id == null or p.id == 0}">➕ Nuovo Dipendente</h2>
+    <h2 th:if="${p.id != null and p.id != 0}">✏️ Modifica Dipendente</h2>
 
     <!-- Messaggio di avviso (es. nessuna modifica) -->
     <div th:if="${msg != null}" class="alert alert-warning" role="alert" th:text="${msg}"></div>
 
+    <!-- FORM -->
     <form th:action="${p.id} != null ? @{/edit/{id}(id=${p.id})} : @{/new}" 
           class="row g-3" th:object="${p}" method="post">
 
         <!-- ========== CAMP DI PERSONA ========== -->
-        <div class="col-md-4">
-            <label for="nome" class="form-label">Nome *</label>
+        <div class="col-md-6">
+            <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" th:field="*{nome}" id="nome" 
                    placeholder="Es. Mario" required>
         </div>
 
-        <div class="col-md-4">
-            <label for="cognome" class="form-label">Cognome *</label>
+        <div class="col-md-6">
+            <label for="cognome" class="form-label">Cognome</label>
             <input type="text" class="form-control" th:field="*{cognome}" id="cognome" 
                    placeholder="Es. Rossi" required>
         </div>
 
-        <div class="col-md-4">
-            <label for="cf" class="form-label">Codice Fiscale *</label>
+        <div class="col-md-6">
+            <label for="cf" class="form-label">Codice Fiscale</label>
             <input type="text" class="form-control" th:field="*{cf}" id="cf" 
                    placeholder="Es. RSSMRA85M10A562S" required>
         </div>
 
-        <div class="col-md-4">
-            <label for="dataNascita" class="form-label">Data di nascita *</label>
+        <div class="col-md-6">
+            <label for="dataNascita" class="form-label">Data di nascita</label>
             <input type="date" class="form-control" th:field="*{dataDiNascita}" id="dataNascita" 
-                   placeholder="gg/mm/aaaa" required>
+                   required>
         </div>
 
         <!-- ========== CAMP DI DIPENDENTE ========== -->
-        <div class="col-md-4">
-            <label for="stipendio" class="form-label">Stipendio *</label>
+        <div class="col-md-6">
+            <label for="stipendio" class="form-label">Stipendio</label>
             <input type="number" step="0.01" class="form-control" th:field="*{stipendio}" id="stipendio" 
                    placeholder="Es. 2500.00" required>
         </div>
 
-        <div class="col-md-4">
-            <label for="email" class="form-label">Email *</label>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" th:field="*{email}" id="email" 
                    placeholder="Es. mario.rossi@email.com" required>
         </div>
 
-        <div class="col-md-4">
-            <label for="dataAssunzione" class="form-label">Data di assunzione *</label>
+        <div class="col-md-6">
+            <label for="dataAssunzione" class="form-label">Data di assunzione</label>
             <input type="date" class="form-control" th:field="*{dataDiAssunzione}" id="dataAssunzione" 
-                   placeholder="gg/mm/aaaa" required>
+                   required>
         </div>
 
-        <div class="col-md-4">
-            <label for="ruolo" class="form-label">Ruolo *</label>
+        <div class="col-md-6">
+            <label for="ruolo" class="form-label">Ruolo</label>
             <select class="form-select" th:field="*{tipoRuolo}" id="ruolo" required>
                 <option value="">Seleziona un ruolo</option>
                 <option th:each="r : ${T(com.example.demo.entities.Ruolo).values()}" 
@@ -76,12 +77,14 @@
 
         <!-- ========== PULSANTI ========== -->
         <div class="col-12">
-            <button class="btn btn-secondary" type="reset">Cancella</button>
-            <button class="btn btn-success" type="submit" 
-                    th:if="${p.id} == null or ${p.id} == 0">Registrati</button>
-            <button class="btn btn-primary" type="submit" 
-                    th:if="${p.id} != null and ${p.id} != 0">Applica</button>
-            <a class="btn btn-danger" th:href="@{/home}">Annulla</a>
+            <div class="d-flex flex-wrap gap-2 justify-content-start">
+                <button class="btn btn-secondary" type="reset">🗑️ Cancella</button>
+                <button class="btn btn-success" type="submit" 
+                        th:if="${p.id == null or p.id == 0}">✅ Registrati</button>
+                <button class="btn btn-primary" type="submit" 
+                        th:if="${p.id != null and p.id != 0}">💾 Applica</button>
+                <a class="btn btn-danger" th:href="@{/home}">✖ Annulla</a>
+            </div>
         </div>
 
     </form>

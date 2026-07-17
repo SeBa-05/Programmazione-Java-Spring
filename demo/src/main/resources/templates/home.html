@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
-	<link rel="stylesheet" th:href="@{/css/bootstrap-css/bootstrap.rtl.min.css}">
-	<!-- CSS Personalizzato -->
-	<link rel="stylesheet" th:href="@{/css/style.css}">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <title>Home Page - Gestione Dipendenti</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-css/bootstrap.rtl.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Home - Gestione Dipendenti</title>
 </head>
 <body>
 
-<div class="container mt-4">
+<div class="container container-home">
 
-    <!-- Intestazione -->
-    <h1 class="mb-4">🏢 Gestione Dipendenti</h1>
+    <!-- Icona / Logo -->
+    <span class="logo-icon">🏢</span>
+
+    <!-- Titolo -->
+    <h1>Gestione Dipendenti</h1>
+    <p class="subtitle">Gestisci facilmente i tuoi dipendenti con pochi click</p>
 
     <!-- Messaggio di successo dopo registrazione o modifica -->
     <div th:if="${pNew != null}">
@@ -41,10 +41,19 @@
     <div th:if="${msg != null and pNew == null}" class="alert alert-warning" role="alert" th:text="${msg}"></div>
 
     <!-- Pulsanti azioni -->
-    <div class="mt-4">
-        <a class="btn btn-success btn-lg" th:href="@{/new}">➕ Nuovo Dipendente</a>
-        <a class="btn btn-primary btn-lg" th:href="@{/gestione}">📋 Gestisci</a>
+    <div class="btn-group-home">
+        <a class="btn-home btn-home-success" th:href="@{/new}">
+            <span>➕</span> Nuovo Dipendente
+        </a>
+        <a class="btn-home btn-home-primary" th:href="@{/gestione}">
+            <span>📋</span> Gestisci
+        </a>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 Gestione Dipendenti &bull; Tutti i diritti riservati
+    </footer>
 
 </div>
 

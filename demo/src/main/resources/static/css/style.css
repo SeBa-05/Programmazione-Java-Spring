@@ -1,8 +1,6 @@
 /* ============================================
    STILE PAGINA GESTIONE (GESTIONE.HTML)
    ============================================ */
-   
-
 
 /* ---------- CONTAINER ---------- */
 .container {
@@ -344,5 +342,488 @@ h2::before {
     .filtro-container .form-select {
         font-size: 0.85rem;
         padding: 8px 12px;
+    }
+}
+
+/* ============================================
+   STILE PAGINA FORM (FORM.HTML)
+   ============================================ */
+
+/* ---------- CONTENITORE FORM ---------- */
+.container-form {
+    background: white;
+    border-radius: 16px;
+    padding: 40px 35px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ---------- TITOLO ---------- */
+.container-form h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 3px solid #2563eb;
+    padding-bottom: 15px;
+}
+
+.container-form h2::before {
+    content: "📝";
+    font-size: 1.8rem;
+}
+
+/* ---------- CAMPI DEL FORM ---------- */
+.container-form .form-label {
+    font-weight: 600;
+    color: #334155;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Campo con asterisco (required) */
+.container-form .form-label::after {
+    content: " *";
+    color: #ef4444;
+    font-weight: 700;
+}
+
+/* Input e select */
+.container-form .form-control,
+.container-form .form-select {
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+    background: #f8fafc;
+}
+
+.container-form .form-control:focus,
+.container-form .form-select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    background: white;
+}
+
+.container-form .form-control::placeholder {
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+/* ---------- SELECT (RUOLO) ---------- */
+.container-form .form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23475569' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+}
+
+/* ---------- DATA (tipo date) ---------- */
+.container-form input[type="date"] {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: #f8fafc;
+}
+
+.container-form input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.6;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.container-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* ---------- NUMERO (stipendio) ---------- */
+.container-form input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.container-form input[type="number"]::-webkit-outer-spin-button,
+.container-form input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ---------- PULSANTI ---------- */
+.container-form .btn {
+    border-radius: 50px;
+    padding: 10px 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
+    border: none;
+    text-transform: uppercase;
+}
+
+.container-form .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Pulsante Registrati / Applica */
+.container-form .btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+}
+
+.container-form .btn-success:hover {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+.container-form .btn-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+}
+
+.container-form .btn-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* Pulsante Cancella (reset) */
+.container-form .btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+    border: 2px solid #e2e8f0;
+}
+
+.container-form .btn-secondary:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+}
+
+/* Pulsante Annulla */
+.container-form .btn-danger {
+    background: #f1f5f9;
+    color: #ef4444;
+    border: 2px solid #fecaca;
+}
+
+.container-form .btn-danger:hover {
+    background: #fecaca;
+    border-color: #ef4444;
+}
+
+/* ---------- GRIGLIA E SPAZI ---------- */
+.container-form .row.g-3 {
+    --bs-gutter-y: 1.2rem;
+}
+
+/* ---------- MESSAGGIO DI AVVISO (es. nessuna modifica) ---------- */
+.container-form .alert-warning {
+    border-radius: 12px;
+    border-left: 4px solid #f59e0b;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .container-form {
+        padding: 25px 20px;
+        margin: 15px 10px;
+    }
+
+    .container-form h2 {
+        font-size: 1.4rem;
+    }
+
+    .container-form .form-control,
+    .container-form .form-select {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .container-form .btn {
+        font-size: 0.8rem;
+        padding: 8px 20px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .container-form .btn-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-form {
+        padding: 20px 15px;
+    }
+
+    .container-form h2 {
+        font-size: 1.2rem;
+    }
+
+    .container-form .form-label {
+        font-size: 0.8rem;
+    }
+
+    .container-form .form-control,
+    .container-form .form-select {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+}
+
+/* ============================================
+   STILE PAGINA HOME (HOME.HTML)
+   ============================================ */
+
+/* ---------- CONTENITORE HOME ---------- */
+.container-home {
+    background: white;
+    border-radius: 20px;
+    padding: 60px 50px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    margin-top: 40px;
+    margin-bottom: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorazione di sfondo */
+.container-home::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.01));
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.container-home::after {
+    content: '';
+    position: absolute;
+    bottom: -40%;
+    left: -20%;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.05), rgba(34, 197, 94, 0.01));
+    border-radius: 50%;
+    z-index: 0;
+}
+
+/* ---------- TITOLO ---------- */
+.container-home h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.container-home .subtitle {
+    font-size: 1.2rem;
+    color: #64748b;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
+}
+
+/* ---------- LOGO / ICONA ---------- */
+.container-home .logo-icon {
+    font-size: 4rem;
+    display: block;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- BOTTONI ---------- */
+.container-home .btn-group-home {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.container-home .btn-home {
+    border-radius: 60px;
+    padding: 16px 40px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.container-home .btn-home:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Pulsante Nuovo Dipendente (verde) */
+.container-home .btn-home-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+}
+
+.container-home .btn-home-success:hover {
+    background: linear-gradient(135deg, #16a34a, #15803d);
+}
+
+/* Pulsante Gestisci (blu) */
+.container-home .btn-home-primary {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+}
+
+.container-home .btn-home-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* ---------- STATISTICHE / INFO (opzionale) ---------- */
+.container-home .stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid #f1f5f9;
+    position: relative;
+    z-index: 1;
+}
+
+.container-home .stats-item {
+    text-align: center;
+}
+
+.container-home .stats-item .number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.container-home .stats-item .label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ---------- MESSAGGI ---------- */
+.container-home .alert-success {
+    border-radius: 12px;
+    border-left: 4px solid #16a34a;
+    background: #dcfce7;
+    color: #166534;
+    padding: 20px 25px;
+    margin-bottom: 30px;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.container-home .alert-success h4 {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.container-home .alert-success hr {
+    margin: 15px 0;
+    border-color: rgba(22, 163, 74, 0.2);
+}
+
+/* ---------- FOOTER ---------- */
+.container-home footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 2px solid #f1f5f9;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+    .container-home {
+        padding: 40px 25px;
+        margin: 20px 15px;
+    }
+
+    .container-home h1 {
+        font-size: 2rem;
+    }
+
+    .container-home .subtitle {
+        font-size: 1rem;
+    }
+
+    .container-home .btn-home {
+        padding: 14px 30px;
+        font-size: 1rem;
+        min-width: 160px;
+    }
+
+    .container-home .stats {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .container-home .logo-icon {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-home {
+        padding: 30px 20px;
+    }
+
+    .container-home h1 {
+        font-size: 1.6rem;
+    }
+
+    .container-home .btn-home {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        min-width: 140px;
+        width: 100%;
+    }
+
+    .container-home .btn-group-home {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .container-home .subtitle {
+        font-size: 0.9rem;
     }
 }
