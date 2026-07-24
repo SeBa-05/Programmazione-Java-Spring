@@ -416,6 +416,23 @@ h2::before {
     background: white;
 }
 
+/* Campo email in modalità readonly (quando un utente è selezionato) */
+.field-readonly input[type="email"] {
+    background-color: #f1f5f9;
+    cursor: default;
+    opacity: 0.8;
+}
+
+.field-readonly input[type="email"]:focus {
+    border-color: #e2e8f0;
+    box-shadow: none;
+}
+
+.field-readonly label small {
+    font-weight: 400;
+    color: #64748b;
+}
+
 .container-form .form-control::placeholder {
     color: #94a3b8;
     font-size: 0.9rem;
@@ -706,34 +723,37 @@ h2::before {
     background: linear-gradient(135deg, #1d4ed8, #1e40af);
 }
 
-/* ---------- STATISTICHE / INFO (opzionale) ---------- */
-.container-home .stats {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 40px;
-    padding-top: 30px;
-    border-top: 2px solid #f1f5f9;
-    position: relative;
-    z-index: 1;
+/* ====== PULSANTE GESTISCI UTENTI (viola) ====== */
+.container-home .btn-home-secondary {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
 }
 
-.container-home .stats-item {
-    text-align: center;
+.container-home .btn-home-secondary:hover {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
 }
 
-.container-home .stats-item .number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1e293b;
+/* ====== PULSANTE LOGIN (blu scuro) ====== */
+.container-home .btn-home-login {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
 }
 
-.container-home .stats-item .label {
-    font-size: 0.85rem;
+.container-home .btn-home-login:hover {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+}
+
+/* ====== PULSANTE REGISTRATI (disabilitato visivamente) ====== */
+.container-home .btn-home-disabled {
+    background: #e2e8f0;
     color: #94a3b8;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 /* ---------- MESSAGGI ---------- */
@@ -770,6 +790,13 @@ h2::before {
     z-index: 1;
 }
 
+/* ---------- MESSAGGIO DI ACCESSO NEGATO ---------- */
+.container-home .access-denied {
+    color: #ef4444;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
     .container-home {
@@ -789,11 +816,6 @@ h2::before {
         padding: 14px 30px;
         font-size: 1rem;
         min-width: 160px;
-    }
-
-    .container-home .stats {
-        flex-direction: column;
-        gap: 20px;
     }
 
     .container-home .logo-icon {

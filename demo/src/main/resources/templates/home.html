@@ -8,55 +8,68 @@
     <title>Home - Gestione Dipendenti</title>
 </head>
 <body>
-
 <div class="container container-home">
 
-    <!-- Icona / Logo -->
-    <span class="logo-icon">🏢</span>
+    <!-- Sezione utente loggato -->
+    <div th:if="${session.loggedUser != null}">
+        <span class="logo-icon">👋</span>
+        <h1>Benvenuto, <span th:text="${session.loggedUser.username}"></span>!</h1>
+        <p class="subtitle" th:text="'Ruolo: ' + ${session.loggedUser.permission.type.name()}"></p>
+        <a class="btn btn-secondary" th:href="@{/logout}">🚪 Logout</a>
 
-    <!-- Titolo -->
-    <h1>Gestione Dipendenti</h1>
-    <p class="subtitle">Gestisci facilmente i tuoi dipendenti con pochi click</p>
+        <!-- Solo ADMIN può gestire dipendenti e utenti -->
+        <div th:if="${session.loggedUser.permission.type.name() == 'ADMIN'}">
+            <div class="btn-group-home" style="margin-top: 20px;">
+                <a class="btn-home btn-home-success" th:href="@{/new}">➕ Nuovo Dipendente</a>
+                <a class="btn-home btn-home-primary" th:href="@{/gestione}">📋 Gestisci Dipendenti</a>
+                <a class="btn-home btn-home-secondary" th:href="@{/users}">👥 Gestisci Utenti</a>
+            </div>
+        </div>
+        <div th:unless="${session.loggedUser.permission.type.name() == 'ADMIN'}">
+            <div class="btn-group-home" style="margin-top: 20px;">
+                <a class="btn-home btn-home-primary" th:href="@{/gestione}">👁️ Visualizza Dipendenti</a>
+            </div>
+            <p class="access-denied">⛔ Non hai i permessi per gestire i dipendenti. Puoi solo visualizzarli.</p>
+        </div>
+    </div>
 
-    <!-- Messaggio di successo dopo registrazione o modifica -->
-    <div th:if="${pNew != null}">
+    <!-- Utente non loggato -->
+    <div th:unless="${session.loggedUser != null}">
+        <span class="logo-icon">🏢</span>
+        <h1>Gestione Dipendenti</h1>
+        <p class="subtitle">Accedi per continuare</p>
+        <div class="btn-group-home">
+            <a class="btn-home btn-home-login" th:href="@{/login}">🔐 Login</a>
+        </div>
+        <p style="margin-top: 20px; color: #94a3b8; font-size: 0.9rem;">
+            💡 La registrazione è riservata all'amministratore.
+        </p>
+    </div>
+
+    <!-- Messaggi di operazione -->
+    <div th:if="${dNew != null}">
         <div class="alert alert-success" role="alert">
             <h4 class="alert-heading">✅ Operazione completata!</h4>
             <p>
                 <strong th:text="${msg}"></strong>
-                <span th:text="${pNew.nome + ' ' + pNew.cognome}"></span>
-                <span th:if="${pNew.tipoRuolo != null}" th:text="' (' + ${pNew.tipoRuolo} + ')'"></span>
+                <span th:text="${dNew.nome + ' ' + dNew.cognome}"></span>
+                <span th:if="${dNew.tipoRuolo != null}" th:text="' (' + ${dNew.tipoRuolo} + ')'"></span>
             </p>
             <hr>
             <p class="mb-0">
                 <small>
-                    📧 <span th:text="${pNew.email}"></span> &nbsp;|&nbsp; 
-                    💰 <span th:text="${#numbers.formatDecimal(pNew.stipendio, 1, 2)}"></span> €
+                    📧 <span th:text="${dNew.email}"></span> &nbsp;|&nbsp;
+                    💰 <span th:text="${#numbers.formatDecimal(dNew.stipendio, 1, 2)}"></span> €
                 </small>
             </p>
         </div>
     </div>
 
-    <!-- Messaggio di errore generico (se presente) -->
-    <div th:if="${msg != null and pNew == null}" class="alert alert-warning" role="alert" th:text="${msg}"></div>
-
-    <!-- Pulsanti azioni -->
-    <div class="btn-group-home">
-        <a class="btn-home btn-home-success" th:href="@{/new}">
-            <span>➕</span> Nuovo Dipendente
-        </a>
-        <a class="btn-home btn-home-primary" th:href="@{/gestione}">
-            <span>📋</span> Gestisci
-        </a>
-    </div>
-
-    <!-- Footer -->
     <footer>
         &copy; 2026 Gestione Dipendenti &bull; Tutti i diritti riservati
     </footer>
 
 </div>
-
 <script th:src="@{/js/bootstrap-js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

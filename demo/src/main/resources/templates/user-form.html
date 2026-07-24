@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="it" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-css/bootstrap.rtl.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Nuovo Utente</title>
+</head>
+<body>
+<div class="container container-form">
+    <h2>➕ Nuovo Utente</h2>
+
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <form method="post" th:action="@{/users/new}" class="row g-3">
+        <div class="col-md-6">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="col-md-6">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="col-md-6">
+            <label for="role" class="form-label">Ruolo</label>
+            <select class="form-select" id="role" name="role">
+                <option value="GUEST">GUEST</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-success">✅ Crea Utente</button>
+            <a class="btn btn-secondary" th:href="@{/users}">Annulla</a>
+        </div>
+    </form>
+</div>
+<script th:src="@{/js/bootstrap-js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
