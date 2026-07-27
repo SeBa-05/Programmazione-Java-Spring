@@ -5,35 +5,34 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.entities.Dipendente;
 import com.example.demo.repositories.IDipendenteRepository;
+import com.example.demo.repositories.IDettaglioProgettoRepository;
 
 @Service
 public class DipendenteService {
 
     private final IDipendenteRepository dipendenteRepo;
+    private final IDettaglioProgettoRepository dettaglioRepo;  // <-- NUOVO
 
-    public DipendenteService(IDipendenteRepository dipendenteRepo) {
+    public DipendenteService(IDipendenteRepository dipendenteRepo, 
+                             IDettaglioProgettoRepository dettaglioRepo) {
         this.dipendenteRepo = dipendenteRepo;
+        this.dettaglioRepo = dettaglioRepo;
     }
 
     public Dipendente inserimentoDipendente(Dipendente d) {
         return dipendenteRepo.save(d);
     }
 
-    // Paginazione
     public Page<Dipendente> selectAll(Pageable pageable) {
         return dipendenteRepo.findAll(pageable);
     }
 
-    // Lista completa (senza paginazione)
     public List<Dipendente> selectAll() {
         return dipendenteRepo.findAll();
-    }
-
-    public void deleteById(Integer id) {
-        dipendenteRepo.deleteById(id);
     }
 
     public Dipendente selectById(Integer id) {
@@ -43,5 +42,13 @@ public class DipendenteService {
 
     public Dipendente editPersona(Dipendente d) {
         return dipendenteRepo.save(d);
+    }
+
+    @Transactional
+    public void deleteById(Integer id) {
+        // 1. Rimuovi il dipendente da tutti i progetti (distacco)
+        dettaglioRepo.deleteByDipendenteId(id);
+        // 2. Elimina il dipendente
+        dipendenteRepo.deleteById(id);
     }
 }

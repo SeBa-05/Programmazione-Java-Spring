@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="it" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-css/bootstrap.rtl.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Gestione Progetti</title>
+</head>
+<body>
+<div class="container animate-fade">
+
+    <h2 class="mb-3">📋 Gestione Progetti</h2>
+
+    <div th:if="${msg != null}" class="alert alert-info" role="alert" th:text="${msg}"></div>
+
+    <div class="mb-3 d-flex flex-wrap gap-2">
+        <a class="btn btn-success" th:href="@{/progetti/new}" th:if="${isAdmin}">➕ Nuovo Progetto</a>
+        <a class="btn btn-secondary" th:href="@{/home}">← Torna alla Home</a>
+    </div>
+
+    <!-- ======== WRAPPER PER SCROLL ORIZZONTALE ======== -->
+    <div class="table-wrapper">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Data Inizio</th>
+                    <th>Data Fine</th>
+                    <th>Budget</th>
+                    <th># Dip.</th>
+                    <th>Stip. Med.</th>
+                    <th class="text-center">Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="p : ${items}">
+                    <td th:text="${p.nome}"></td>
+                    <td th:text="${#temporals.format(p.dataInizio, 'dd/MM/yyyy')}"></td>
+                    <td th:text="${p.dataFine != null ? #temporals.format(p.dataFine, 'dd/MM/yyyy') : 'In corso'}"></td>
+                    <td th:text="${#numbers.formatDecimal(p.budget, 1, 2)}"></td>
+                    <td th:text="${p.numDipendenti}"></td>
+                    <td th:text="${#numbers.formatDecimal(p.stipendioMedio, 1, 2)}"></td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm" th:href="@{'/progetti/' + ${p.id}}">📋 Dettaglio</a>
+                        <a class="btn btn-success btn-sm" th:href="@{'/progetti/' + ${p.id} + '/edit'}" th:if="${isAdmin}">✏️ Modifica</a>
+                        <a class="btn btn-danger btn-sm" th:href="@{'/progetti/' + ${p.id} + '/delete'}" 
+                           th:if="${isAdmin}" onclick="return confirm('Sei sicuro?')">🗑️ Elimina</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- =============================================== -->
+
+    <!-- Paginazione -->
+    <nav aria-label="Paginazione" th:if="${totalPages > 0}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 0} ? disabled">
+                <a class="page-link" th:href="@{/progetti(page=${currentPage - 1})}"
+                   th:if="${currentPage > 0}">Precedente</a>
+                <span class="page-link" th:unless="${currentPage > 0}">Precedente</span>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a class="page-link" th:href="@{/progetti(page=${i})}"
+                   th:classappend="${i == currentPage} ? active"
+                   th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? disabled">
+                <a class="page-link" th:href="@{/progetti(page=${currentPage + 1})}"
+                   th:if="${currentPage < totalPages - 1}">Successiva</a>
+                <span class="page-link" th:unless="${currentPage < totalPages - 1}">Successiva</span>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+<script th:src="@{/js/bootstrap-js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

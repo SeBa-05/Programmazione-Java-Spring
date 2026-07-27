@@ -17,17 +17,21 @@
         <p class="subtitle" th:text="'Ruolo: ' + ${session.loggedUser.permission.type.name()}"></p>
         <a class="btn btn-secondary" th:href="@{/logout}">🚪 Logout</a>
 
-        <!-- Solo ADMIN può gestire dipendenti e utenti -->
+        <!-- Solo ADMIN può gestire dipendenti, utenti e progetti -->
         <div th:if="${session.loggedUser.permission.type.name() == 'ADMIN'}">
             <div class="btn-group-home" style="margin-top: 20px;">
-                <a class="btn-home btn-home-success" th:href="@{/new}">➕ Nuovo Dipendente</a>
+                <!-- RIMOSSO IL PULSANTE "➕ Nuovo Dipendente" -->
                 <a class="btn-home btn-home-primary" th:href="@{/gestione}">📋 Gestisci Dipendenti</a>
+                <a class="btn-home btn-home-warning" th:href="@{/progetti}">📊 Progetti</a>
                 <a class="btn-home btn-home-secondary" th:href="@{/users}">👥 Gestisci Utenti</a>
             </div>
         </div>
+
+        <!-- GUEST può solo visualizzare -->
         <div th:unless="${session.loggedUser.permission.type.name() == 'ADMIN'}">
             <div class="btn-group-home" style="margin-top: 20px;">
                 <a class="btn-home btn-home-primary" th:href="@{/gestione}">👁️ Visualizza Dipendenti</a>
+                <a class="btn-home btn-home-warning" th:href="@{/progetti}">📊 Visualizza Progetti</a>
             </div>
             <p class="access-denied">⛔ Non hai i permessi per gestire i dipendenti. Puoi solo visualizzarli.</p>
         </div>
@@ -53,12 +57,10 @@
             <p>
                 <strong th:text="${msg}"></strong>
                 <span th:text="${dNew.nome + ' ' + dNew.cognome}"></span>
-                <span th:if="${dNew.tipoRuolo != null}" th:text="' (' + ${dNew.tipoRuolo} + ')'"></span>
             </p>
             <hr>
             <p class="mb-0">
                 <small>
-                    📧 <span th:text="${dNew.email}"></span> &nbsp;|&nbsp;
                     💰 <span th:text="${#numbers.formatDecimal(dNew.stipendio, 1, 2)}"></span> €
                 </small>
             </p>

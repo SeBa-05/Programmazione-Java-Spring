@@ -1,14 +1,8 @@
 package com.example.demo.entities;
 
-import java.time.LocalDate;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -17,16 +11,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "dipendenti")
+@Table(name = "dipendente")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Dipendente extends Persona {
 
@@ -34,28 +31,26 @@ public class Dipendente extends Persona {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull(message = "Stipendio obbligatorio!")
+    @NotBlank(message = "Il nome è obbligatorio!")
+    @Column(nullable = false)
+    private String nome;
+
+    @NotBlank(message = "Il cognome è obbligatorio!")
+    @Column(nullable = false)
+    private String cognome;
+
+    @NotBlank(message = "Il codice fiscale è obbligatorio!")
+    @Column(nullable = false, unique = true, length = 16)
+    private String cf;
+
+    // dataNascita è ereditato da Persona
+
+    @NotNull(message = "Lo stipendio è obbligatorio!")
     @Positive(message = "Lo stipendio deve essere maggiore di zero")
     @Column(nullable = false)
     private double stipendio;
 
-    @NotBlank(message = "Email obbligatoria!")
-    @Email(message = "Email non valida (es. nome@dominio.com)")
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @NotNull(message = "Data di assunzione obbligatoria!")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @Column(name = "data_di_assunzione", nullable = false)
-    private LocalDate dataDiAssunzione;
-
-    @NotNull(message = "Ruolo obbligatorio!")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "ruolo", nullable = false)
-    private Ruolo tipoRuolo;
-
-    // ========== RELAZIONE CON USER ==========
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REMOVE, CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "id_user", nullable = false, foreignKey = @ForeignKey(name = "fk_dipendente_user"))
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @JoinColumn(name = "id_user", foreignKey = @ForeignKey(name = "fk_dipendente_user"))
     private User user;
 }

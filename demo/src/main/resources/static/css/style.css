@@ -735,16 +735,22 @@ h2::before {
     box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
 }
 
+/* ====== PULSANTE PROGETTI (arancione) ====== */
+.container-home .btn-home-warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+}
+
+.container-home .btn-home-warning:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+}
+
 /* ====== PULSANTE LOGIN (blu scuro) ====== */
 .container-home .btn-home-login {
     background: linear-gradient(135deg, #3b82f6, #2563eb);
     color: white;
-}
-
-.container-home .btn-home-login:hover {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
 }
 
 /* ====== PULSANTE REGISTRATI (disabilitato visivamente) ====== */
@@ -847,5 +853,730 @@ h2::before {
 
     .container-home .subtitle {
         font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   STILE PAGINA PROGETTI E DETTAGLIO
+   ============================================ */
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.card .card-body {
+    padding: 25px;
+}
+
+/* ============================================
+   RESPONSIVE - TABELLE CON SCROLL ORIZZONTALE
+   ============================================ */
+
+/* Wrapper per scroll orizzontale delle tabelle */
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 5px;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+}
+
+.table-wrapper .table {
+    min-width: 650px;
+    margin-bottom: 0;
+}
+
+/* ============================================
+   RESPONSIVE - EXTRA MEDIA QUERY PER MOBILE
+   ============================================ */
+
+/* ---------- TABLET (SMALL) / MOBILE LARGE ---------- */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px 12px;
+        margin: 10px 5px;
+        border-radius: 12px;
+    }
+
+    .container-form {
+        padding: 25px 20px;
+        margin: 15px 10px;
+        border-radius: 12px;
+    }
+
+    .container-form h2 {
+        font-size: 1.4rem;
+    }
+
+    .container-form .form-control,
+    .container-form .form-select {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+
+    .container-form .btn {
+        font-size: 0.8rem;
+        padding: 8px 20px;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+
+    .container-form .d-flex {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .container-form .d-flex .btn {
+        width: 100% !important;
+    }
+
+    .container-home {
+        padding: 30px 20px;
+        margin: 15px 10px;
+        border-radius: 16px;
+    }
+
+    .container-home h1 {
+        font-size: 1.8rem;
+    }
+
+    .container-home .subtitle {
+        font-size: 1rem;
+    }
+
+    .container-home .btn-home {
+        padding: 14px 30px;
+        font-size: 1rem;
+        min-width: 160px;
+    }
+
+    .container-home .logo-icon {
+        font-size: 3rem;
+    }
+
+    .container-home .btn-group-home {
+        gap: 12px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h2::before {
+        font-size: 1.5rem;
+    }
+
+    .table-wrapper {
+        margin: 0 -10px;
+        border-radius: 0;
+    }
+
+    .table-wrapper .table {
+        min-width: 550px;
+    }
+}
+
+/* ---------- MOBILE (SMALL) ---------- */
+@media (max-width: 576px) {
+    .container {
+        padding: 12px 10px;
+        margin: 8px 3px;
+        border-radius: 10px;
+    }
+
+    .table-wrapper {
+        margin: 0 -10px;
+        border-radius: 0;
+    }
+
+    .table-wrapper .table {
+        min-width: 480px;
+    }
+
+    .table thead th {
+        font-size: 0.6rem;
+        padding: 8px 8px;
+        white-space: nowrap;
+    }
+
+    .table tbody td {
+        font-size: 0.7rem;
+        padding: 8px 8px;
+        word-break: break-word;
+    }
+
+    .table .btn {
+        font-size: 0.6rem;
+        padding: 4px 10px;
+        margin: 2px;
+        border-radius: 20px;
+    }
+
+    .badge-role {
+        font-size: 0.55rem;
+        padding: 3px 10px;
+    }
+
+    .container-form {
+        padding: 20px 15px;
+        margin: 10px 5px;
+        border-radius: 10px;
+    }
+
+    .container-form h2 {
+        font-size: 1.2rem;
+    }
+
+    .container-form .form-label {
+        font-size: 0.8rem;
+    }
+
+    .container-form .form-control,
+    .container-form .form-select {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+
+    .container-form .btn {
+        font-size: 0.75rem;
+        padding: 8px 16px;
+        width: 100%;
+    }
+
+    .container-home {
+        padding: 25px 15px;
+        margin: 10px 5px;
+        border-radius: 12px;
+    }
+
+    .container-home h1 {
+        font-size: 1.5rem;
+    }
+
+    .container-home .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 25px;
+    }
+
+    .container-home .btn-home {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        min-width: 140px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .container-home .btn-group-home {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .container-home .logo-icon {
+        font-size: 2.5rem;
+    }
+
+    .container-home footer {
+        font-size: 0.7rem;
+        margin-top: 30px;
+    }
+
+    .filtro-container {
+        padding: 12px;
+    }
+
+    .filtro-container .input-group {
+        flex-direction: column;
+    }
+
+    .filtro-container .input-group-text {
+        border-radius: 8px 8px 0 0;
+        border-right: 2px solid #e2e8f0;
+        border-bottom: none;
+        justify-content: center;
+    }
+
+    .filtro-container .form-control,
+    .filtro-container .form-select {
+        border-radius: 0 0 8px 8px;
+        border-left: 2px solid #e2e8f0;
+        border-top: none;
+    }
+
+    .filtro-container .form-control:focus,
+    .filtro-container .form-select:focus {
+        border-left: 2px solid #2563eb;
+    }
+
+    .btn-group {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .btn-group .btn {
+        width: 100%;
+        justify-content: center;
+        border-radius: 30px !important;
+    }
+
+    .mt-3 .btn-secondary {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ---------- MOBILE (EXTRA SMALL) ---------- */
+@media (max-width: 400px) {
+    .container {
+        padding: 8px 6px;
+        margin: 5px 2px;
+        border-radius: 8px;
+    }
+
+    .table-wrapper .table {
+        min-width: 380px;
+    }
+
+    .table thead th {
+        font-size: 0.5rem;
+        padding: 5px 5px;
+    }
+
+    .table tbody td {
+        font-size: 0.6rem;
+        padding: 5px 5px;
+    }
+
+    .table .btn {
+        font-size: 0.5rem;
+        padding: 3px 8px;
+    }
+
+    .container-home h1 {
+        font-size: 1.2rem;
+    }
+
+    .container-home .btn-home {
+        font-size: 0.8rem;
+        padding: 10px 16px;
+    }
+
+    .container-form {
+        padding: 15px 10px;
+    }
+
+    .container-form h2 {
+        font-size: 1rem;
+    }
+
+    .container-form .form-control,
+    .container-form .form-select {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+
+    .container-form .btn {
+        font-size: 0.7rem;
+        padding: 6px 12px;
+    }
+
+    .container-home .logo-icon {
+        font-size: 2rem;
+    }
+}
+
+/* ============================================
+   AGGIUNTE PER PULSANTI SUCCESS E COLONNA AZIONI
+   ============================================ */
+
+/* ---------- PULSANTE SUCCESS PER TABELLE (Assegna) ---------- */
+.table .btn-success {
+    background: #22c55e;
+    color: white;
+    border: none;
+}
+
+.table .btn-success:hover {
+    background: #16a34a;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+
+/* ---------- COLONNA AZIONI - LARGHEZZA MINIMA ---------- */
+/* Questa regola si applica a tutte le tabelle */
+.table th:last-child,
+.table td:last-child {
+    min-width: 180px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* ---------- PULSANTI AZIONE COMPATTI ---------- */
+.table .btn-sm {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+    margin: 0 2px;
+}
+
+/* ---------- PER I CASI CON D-FLEX ---------- */
+.table td .d-flex {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+}
+
+.table td .d-flex .btn {
+    flex: 0 0 auto;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+}
+
+/* ---------- RESPONSIVE PER LA COLONNA AZIONI ---------- */
+@media (max-width: 768px) {
+    .table th:last-child,
+    .table td:last-child {
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .table th:last-child,
+    .table td:last-child {
+        min-width: 130px;
+    }
+    
+    .table .btn-sm {
+        padding: 3px 8px;
+        font-size: 0.6rem;
+    }
+}
+
+/* ============================================
+   CENTRA IL CONTENUTO DELLE CELLE DELLA TABELLA
+   ============================================ */
+
+/* Centra orizzontalmente il testo in tutte le celle */
+.table th,
+.table td {
+    text-align: center;
+    vertical-align: middle; /* Allinea verticalmente al centro (opzionale) */
+}
+
+/* ============================================
+   CENTRA TUTTO IL CONTENUTO DEL SITO
+   ============================================ */
+
+/* ---------- CONTENITORE PRINCIPALE ---------- */
+/* Centra il container principale */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Assicura che tutti i container siano centrati */
+.container,
+.container-form,
+.container-home {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    float: none !important;
+}
+
+/* ---------- CENTRA I TESTI ---------- */
+/* Centra tutti i titoli e paragrafi */
+h1, h2, h3, h4, p, .subtitle {
+    text-align: center !important;
+}
+
+/* Centra le etichette dei form (opzionale - se vuoi centrare anche quelle) */
+.container-form .form-label {
+    text-align: left; /* Torna a sinistra per le etichette (leggibilità) */
+}
+
+/* ---------- CENTRA I PULSANTI ---------- */
+/* Centra i pulsanti in una riga */
+.d-flex {
+    justify-content: center !important;
+}
+
+/* Centra i pulsanti principali della home */
+.btn-group-home {
+    justify-content: center !important;
+}
+
+/* Centra i pulsanti in fondo alle pagine */
+.mt-3 {
+    text-align: center !important;
+}
+
+/* ---------- CENTRA LA PAGINAZIONE ---------- */
+.pagination {
+    justify-content: center !important;
+}
+
+/* ---------- CENTRA I MESSAGGI DI ERRORE/SUCCESSO ---------- */
+.alert {
+    text-align: center !important;
+}
+
+/* ---------- CENTRA GLI ELEMENTI DEL FORM ---------- */
+.container-form .col-12 .d-flex {
+    justify-content: center !important;
+}
+
+/* ---------- CENTRA IL FOOTER ---------- */
+footer {
+    text-align: center !important;
+}
+
+/* ---------- CORREZIONI PER MOBILE ---------- */
+@media (max-width: 768px) {
+    .container,
+    .container-form,
+    .container-home {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    /* I pulsanti in mobile devono rimanere centrati */
+    .container-form .d-flex {
+        flex-direction: column;
+        align-items: center !important;
+    }
+    
+    .container-form .d-flex .btn {
+        width: 100% !important;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container,
+    .container-form,
+    .container-home {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+}
+
+/* ============================================
+   FIX TABELLE PER NON FARLE TAGLIARE
+   ============================================ */
+
+/* Assicura che il wrapper abbia scroll orizzontale */
+.table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 10px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
+}
+
+/* Impedisci alla tabella di rimpicciolirsi troppo */
+.table-wrapper .table {
+    min-width: 800px;  /* <-- LARGHEZZA MINIMA PER EVITARE IL TAGLIO */
+    width: 100%;
+    margin-bottom: 0;
+    table-layout: fixed; /* Opzionale: gestisce meglio le colonne */
+}
+
+/* Imposta larghezze fisse per le colonne per evitare compressioni */
+.table-wrapper .table th,
+.table-wrapper .table td {
+    padding: 10px 12px;
+    white-space: nowrap; /* Evita il ritorno a capo del testo */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Se il testo è troppo lungo, mostra ... */
+}
+
+/* Larghezze specifiche per colonne (adatta a te) */
+.table-wrapper .table th:first-child,
+.table-wrapper .table td:first-child { width: 120px; } /* Nome */
+.table-wrapper .table th:nth-child(2),
+.table-wrapper .table td:nth-child(2) { width: 120px; } /* Data Inizio */
+.table-wrapper .table th:nth-child(3),
+.table-wrapper .table td:nth-child(3) { width: 120px; } /* Data Fine */
+.table-wrapper .table th:nth-child(4),
+.table-wrapper .table td:nth-child(4) { width: 100px; } /* Budget */
+.table-wrapper .table th:nth-child(5),
+.table-wrapper .table td:nth-child(5) { width: 80px; } /* # Dip. */
+.table-wrapper .table th:nth-child(6),
+.table-wrapper .table td:nth-child(6) { width: 100px; } /* Stip. Med. */
+.table-wrapper .table th:last-child,
+.table-wrapper .table td:last-child { width: 220px; } /* Azioni */
+
+/* Responsive: su schermi molto piccoli, riduci le larghezze */
+@media (max-width: 768px) {
+    .table-wrapper .table {
+        min-width: 650px;
+    }
+    .table-wrapper .table th,
+    .table-wrapper .table td {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-wrapper .table {
+        min-width: 500px;
+    }
+    .table-wrapper .table th,
+    .table-wrapper .table td {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+    }
+}
+
+/* ============================================
+   FIX PER I PUNTINI DI SOSPENSIONE NELLE AZIONI
+   ============================================ */
+
+/* Rimuovi ellipsis e overflow nascosto dalla colonna Azioni */
+.table-wrapper .table th:last-child,
+.table-wrapper .table td:last-child {
+    overflow: visible !important;
+    text-overflow: clip !important;
+    white-space: normal !important;  /* Permette ai pulsanti di andare a capo se necessario */
+    min-width: 220px;               /* Larghezza minima per garantire spazio */
+}
+
+/* Mantieni i pulsanti in orizzontale se c'è spazio */
+.table-wrapper .table td:last-child .btn {
+    white-space: nowrap;
+    margin: 2px 3px;
+}
+
+/* Su schermi medi, assicurati che la colonna abbia abbastanza larghezza */
+@media (max-width: 992px) {
+    .table-wrapper .table th:last-child,
+    .table-wrapper .table td:last-child {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-wrapper .table th:last-child,
+    .table-wrapper .table td:last-child {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 576px) {
+    .table-wrapper .table th:last-child,
+    .table-wrapper .table td:last-child {
+        min-width: 150px;
+    }
+    
+    .table-wrapper .table td:last-child .btn {
+        font-size: 0.6rem;
+        padding: 3px 8px;
+    }
+}
+
+/* ============================================
+   FIX PULSANTE LOGOUT - VISIBILE E CLICCABILE
+   ============================================ */
+
+/* Assicura che il container-home abbia altezza sufficiente e non nasconda contenuto */
+.container-home {
+    min-height: 80vh; /* Altezza minima per visibilità */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+/* L'header utente deve essere ben visibile */
+.container-home .header-user {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+/* Il pulsante logout deve essere ben visibile e cliccabile */
+.container-home .btn-logout {
+    padding: 10px 25px;
+    font-size: 1rem;
+    min-height: 44px; /* Touch target minimo per mobile */
+    min-width: 100px;
+}
+
+/* Bottoni principali della home */
+.container-home .btn-home {
+    min-height: 48px;
+    min-width: 180px;
+    padding: 12px 20px;
+}
+
+/* Su schermi molto piccoli, adatta i bottoni */
+@media (max-width: 768px) {
+    .container-home .header-user {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .container-home .header-user h1 {
+        font-size: 1.6rem;
+        text-align: center;
+        word-break: break-word;
+    }
+    
+    .container-home .header-user .subtitle {
+        font-size: 1rem;
+        text-align: center;
+    }
+    
+    .container-home .btn-logout {
+        width: 100%;
+        max-width: 200px;
+        font-size: 0.95rem;
+        padding: 10px 16px;
+    }
+    
+    .container-home .btn-home {
+        min-width: 140px;
+        padding: 12px 16px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 260px;
+    }
+    
+    .container-home .btn-group-home {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container-home .header-user h1 {
+        font-size: 1.3rem;
+    }
+    
+    .container-home .header-user .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .container-home .btn-logout {
+        max-width: 100%;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+    
+    .container-home .btn-home {
+        min-width: 120px;
+        font-size: 0.9rem;
+        padding: 10px 14px;
     }
 }

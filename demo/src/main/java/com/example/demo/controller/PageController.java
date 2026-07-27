@@ -35,7 +35,6 @@ public class PageController {
         this.userService = userService;
     }
 
-    // ---------- METODI DI CONTROLLO ACCESSO ----------
     private boolean isLoggedAdmin(HttpSession session) {
         User logged = (User) session.getAttribute("loggedUser");
         return logged != null && "ADMIN".equals(logged.getPermission().getType().name());
@@ -55,9 +54,6 @@ public class PageController {
         return "home";
     }
 
-    // ============================================================
-    // GESTIONE DIPENDENTI
-    // ============================================================
     @GetMapping("/gestione")
     public String selectAll(Model model,
                             @RequestParam(defaultValue = "0") int page,
@@ -77,7 +73,6 @@ public class PageController {
         return "gestione";
     }
 
-    // ---------- CREAZIONE ----------
     @GetMapping("/new")
     public String create(Model model, HttpSession session) {
         if (!isLoggedAdmin(session)) {
@@ -94,34 +89,48 @@ public class PageController {
                          @RequestParam(required = false) Integer userId,
                          Model model,
                          HttpSession session) {
-        
         if (!isLoggedAdmin(session)) {
             return "redirect:/login";
         }
 
-        // Se è stato selezionato un utente, associo l'utente e uso la sua email
+        // LOG DI DEBUG per verificare i valori
+        System.out.println("=== DATI DIPENDENTE ===");
+        System.out.println("Nome: " + d.getNome());
+        System.out.println("Cognome: " + d.getCognome());
+        System.out.println("CF: " + d.getCf());
+        System.out.println("Data Nascita: " + d.getDataNascita());
+        System.out.println("Stipendio: " + d.getStipendio());
+        System.out.println("User ID: " + (userId != null ? userId : "null"));
+
         if (userId != null && userId > 0) {
             User user = userService.findById(userId).orElse(null);
             if (user != null) {
                 d.setUser(user);
-                d.setEmail(user.getEmail());
             }
         }
 
-        // Se ci sono errori di validazione, ritorno al form
         if (result.hasErrors()) {
+            result.getAllErrors().forEach(e -> System.out.println("ERRORE: " + e.getDefaultMessage()));
             model.addAttribute("d", d);
             model.addAttribute("users", userService.findAll());
             return "form";
         }
 
-        Dipendente dNew = dipService.inserimentoDipendente(d);
-        model.addAttribute("msg", "✅ Dipendente registrato con successo: ");
-        model.addAttribute("dNew", dNew);
-        return "home";
+        try {
+            Dipendente dNew = dipService.inserimentoDipendente(d);
+            model.addAttribute("msg", "✅ Dipendente registrato con successo: ");
+            model.addAttribute("dNew", dNew);
+            return "home";
+        } catch (Exception e) {
+            System.err.println("ERRORE SALVATAGGIO: " + e.getMessage());
+            e.printStackTrace();
+            model.addAttribute("d", d);
+            model.addAttribute("users", userService.findAll());
+            model.addAttribute("msg", "Errore durante il salvataggio: " + e.getMessage());
+            return "form";
+        }
     }
 
-    // ---------- MODIFICA ----------
     @GetMapping("/{id}/edit")
     public String editById(@PathVariable Integer id,
                            Model model,
@@ -146,12 +155,11 @@ public class PageController {
             return "redirect:/login";
         }
 
-        // Se è stato selezionato un utente, lo associo e uso la sua email
         if (userId != null && userId > 0) {
             User user = userService.findById(userId).orElse(null);
             if (user != null) {
                 dForm.setUser(user);
-                dForm.setEmail(user.getEmail());
+                // RIMOSSA: dForm.setEmail(user.getEmail());  // <-- ERRORE!
             }
         }
 
@@ -167,11 +175,8 @@ public class PageController {
         if (!Objects.equals(originale.getNome(), dForm.getNome())) modificato = true;
         else if (!Objects.equals(originale.getCognome(), dForm.getCognome())) modificato = true;
         else if (!Objects.equals(originale.getCf(), dForm.getCf())) modificato = true;
-        else if (!Objects.equals(originale.getDataDiNascita(), dForm.getDataDiNascita())) modificato = true;
+        else if (!Objects.equals(originale.getDataNascita(), dForm.getDataNascita())) modificato = true;
         else if (originale.getStipendio() != dForm.getStipendio()) modificato = true;
-        else if (!Objects.equals(originale.getEmail(), dForm.getEmail())) modificato = true;
-        else if (!Objects.equals(originale.getDataDiAssunzione(), dForm.getDataDiAssunzione())) modificato = true;
-        else if (originale.getTipoRuolo() != dForm.getTipoRuolo()) modificato = true;
         else if (!Objects.equals(originale.getUser(), dForm.getUser())) modificato = true;
 
         if (!modificato) {
@@ -184,11 +189,8 @@ public class PageController {
         originale.setNome(dForm.getNome());
         originale.setCognome(dForm.getCognome());
         originale.setCf(dForm.getCf());
-        originale.setDataDiNascita(dForm.getDataDiNascita());
+        originale.setDataNascita(dForm.getDataNascita());
         originale.setStipendio(dForm.getStipendio());
-        originale.setEmail(dForm.getEmail());
-        originale.setDataDiAssunzione(dForm.getDataDiAssunzione());
-        originale.setTipoRuolo(dForm.getTipoRuolo());
         originale.setUser(dForm.getUser());
 
         dipService.editPersona(originale);
@@ -198,7 +200,6 @@ public class PageController {
         return "home";
     }
 
-    // ---------- ELIMINA ----------
     @GetMapping("/delete")
     public String deleteById(@RequestParam("id") Integer id,
                              Model model,
@@ -212,9 +213,7 @@ public class PageController {
         return "redirect:/gestione";
     }
 
-    // ============================================================
-    // GESTIONE UTENTI (solo ADMIN)
-    // ============================================================
+    // ---------- GESTIONE UTENTI ----------
     @GetMapping("/users")
     public String listUsers(Model model, HttpSession session) {
         if (!isLoggedAdmin(session)) {
